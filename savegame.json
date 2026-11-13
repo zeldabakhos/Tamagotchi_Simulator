@@ -1,0 +1,26 @@
+[
+    {
+        "name": "Mochi",
+        "hunger": 75,
+        "health": 70,
+        "boredom": 75,
+        "exhaustion": 25,
+        "is_alive": true
+    },
+    {
+        "name": "Luna",
+        "hunger": 75,
+        "health": 100,
+        "boredom": 35,
+        "exhaustion": 30,
+        "is_alive": true
+    },
+    {
+        "name": "Pip",
+        "hunger": 75,
+        "health": 100,
+        "boredom": 75,
+        "exhaustion": 25,
+        "is_alive": true
+    }
+]
