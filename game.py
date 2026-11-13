@@ -1,5 +1,6 @@
 import random
 
+from storage import load_game, save_game
 from tamagotchi import Tamagotchi
 
 
@@ -116,6 +117,8 @@ def display_menu(selected_pet):
     print("5. Heal")
     print("6. Display status")
     print("7. Display game statistics")
+    print("8. Save game")
+    print("9. Load game")
     print("0. Quit")
 
 
@@ -147,6 +150,13 @@ def run_game():
                 selected_pet.display_status()
             elif choice == "7":
                 display_statistics(pets)
+            elif choice == "8":
+                save_game(pets)
+                print("Game saved to savegame.json.")
+            elif choice == "9":
+                pets = load_game()
+                selected_pet = pets[0]
+                print("Game loaded from savegame.json. The first pet is selected.")
             else:
                 print("Invalid option. Choose a number from the menu.")
 
@@ -155,3 +165,7 @@ def run_game():
                 selected_pet.display_status()
         except ValueError as error:
             print(error)
+        except FileNotFoundError:
+            print("No save file found. Save a game before loading.")
+        except OSError as error:
+            print(f"Could not access the save file: {error}")
