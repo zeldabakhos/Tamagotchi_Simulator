@@ -38,6 +38,22 @@ class Tamagotchi:
         self._check_alive()
         self.health = min(100, self.health + 20)
 
+    def update_status(self):
+        """Advance one turn; each neglected need costs 10 health."""
+        if not self.is_alive():
+            return
+
+        self.hunger = min(100, self.hunger + 5)
+        self.boredom = min(100, self.boredom + 5)
+        self.exhaustion = min(100, self.exhaustion + 5)
+
+        if self.hunger >= 80:
+            self.health = max(0, self.health - 10)
+        if self.boredom >= 80:
+            self.health = max(0, self.health - 10)
+        if self.exhaustion >= 80:
+            self.health = max(0, self.health - 10)
+
     def display_status(self):
         state = "Alive" if self.is_alive() else "Dead"
         print(f"{self.name} ({state})")
