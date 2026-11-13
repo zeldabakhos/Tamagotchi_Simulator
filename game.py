@@ -3,6 +3,54 @@ import random
 from tamagotchi import Tamagotchi
 
 
+def calculate_statistics(pets):
+    living = 0
+    total_health = 0
+    total_hunger = 0
+    total_boredom = 0
+    total_exhaustion = 0
+
+    for pet in pets:
+        if pet.is_alive():
+            living += 1
+            total_health += pet.health
+        total_hunger += pet.hunger
+        total_boredom += pet.boredom
+        total_exhaustion += pet.exhaustion
+
+    average_health = 0
+    if living > 0:
+        average_health = total_health / living
+
+    average_hunger = 0
+    average_boredom = 0
+    average_exhaustion = 0
+    if len(pets) > 0:
+        average_hunger = total_hunger / len(pets)
+        average_boredom = total_boredom / len(pets)
+        average_exhaustion = total_exhaustion / len(pets)
+
+    return {
+        "living": living,
+        "dead": len(pets) - living,
+        "average_health": average_health,
+        "average_hunger": average_hunger,
+        "average_boredom": average_boredom,
+        "average_exhaustion": average_exhaustion,
+    }
+
+
+def display_statistics(pets):
+    statistics = calculate_statistics(pets)
+    print("\nGame statistics")
+    print(f"Living pets: {statistics['living']}")
+    print(f"Dead pets: {statistics['dead']}")
+    print(f"Average health (living pets): {statistics['average_health']:.1f}/100")
+    print(f"Average hunger (all pets): {statistics['average_hunger']:.1f}/100")
+    print(f"Average boredom (all pets): {statistics['average_boredom']:.1f}/100")
+    print(f"Average exhaustion (all pets): {statistics['average_exhaustion']:.1f}/100")
+
+
 def random_event(pets):
     living_pets = []
     for pet in pets:
@@ -67,6 +115,7 @@ def display_menu(selected_pet):
     print("4. Sleep")
     print("5. Heal")
     print("6. Display status")
+    print("7. Display game statistics")
     print("0. Quit")
 
 
@@ -96,6 +145,8 @@ def run_game():
                 selected_pet.heal()
             elif choice == "6":
                 selected_pet.display_status()
+            elif choice == "7":
+                display_statistics(pets)
             else:
                 print("Invalid option. Choose a number from the menu.")
 
